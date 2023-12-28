@@ -11,31 +11,31 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 
 const roleRoutes = require("./routes/roleRoute");
-const productRoutes = require("./routes/ProductRoutes");
-const productCatRoutes = require("./routes/productCatRoute");
-const productSubCatRoutes = require("./routes/ProductSubCatRoutes");
-const productSubSubCatRoutes = require("./routes/ProductSubSubCatRoutes");
-const customerRoutes = require("./routes/customerRoute");
-const orderRoutes = require("./routes/OrderRoutes");
-const contentRoutes = require("./routes/contentRoutes");
-const galleryRoutes = require("./routes/GalleryCatMasterRoutes");
-const galleryDetailsRoutes = require("./routes/GalleryMasterRoutes");
-const StocksRoutes = require("./routes/StockRoutes");
-const CouponRoutes = require("./routes/couponRoutes");
-const MaterialRoutes = require("./routes/MaterialRoutes");
+// const productRoutes = require("./routes/ProductRoutes");
+// const productCatRoutes = require("./routes/productCatRoute");
+// const productSubCatRoutes = require("./routes/ProductSubCatRoutes");
+// const productSubSubCatRoutes = require("./routes/ProductSubSubCatRoutes");
+// const customerRoutes = require("./routes/customerRoute");
+// const orderRoutes = require("./routes/OrderRoutes");
+// const contentRoutes = require("./routes/contentRoutes");
+// const galleryRoutes = require("./routes/GalleryCatMasterRoutes");
+// const galleryDetailsRoutes = require("./routes/GalleryMasterRoutes");
+// const StocksRoutes = require("./routes/StockRoutes");
+// const CouponRoutes = require("./routes/couponRoutes");
+// const MaterialRoutes = require("./routes/MaterialRoutes");
 // const ColorRoutes = require("./routes/ColorRoutes");
-const SeasonRoutes = require("./routes/SeasonRoutes");
-const Gst = require("./routes/gstRoutes");
-const DailyRatesRoutes = require("./routes/PricetypeRoutes");
-const BannerRoutes = require("./routes/BannerRoutes");
-const BlogRoutes = require("./routes/blogRouts")
-const DashboardRoutes = require("./routes/dashboardRouts")
-const ColorRoutes = require("./routes/ColorRoutes");
-const SizeRoutes = require("./routes/SizeRoutes");
-const BlogCatRoutes = require("./routes/BlogCategoryRoutes");
-const SubscribeRoutes = require("./routes/SubscribeRoutes");
-const contactRoutes = require("./routes/ContactRoutes");
-const paymentGatewayRoutes = require("./routes/PaymentGateway");
+// const SeasonRoutes = require("./routes/SeasonRoutes");
+// const Gst = require("./routes/gstRoutes");
+// const DailyRatesRoutes = require("./routes/PricetypeRoutes");
+// const BannerRoutes = require("./routes/BannerRoutes");
+// const BlogRoutes = require("./routes/blogRouts")
+// const DashboardRoutes = require("./routes/dashboardRouts")
+// const ColorRoutes = require("./routes/ColorRoutes");
+// const SizeRoutes = require("./routes/SizeRoutes");
+// const BlogCatRoutes = require("./routes/BlogCategoryRoutes");
+// const SubscribeRoutes = require("./routes/SubscribeRoutes");
+// const contactRoutes = require("./routes/ContactRoutes");
+// const paymentGatewayRoutes = require("./routes/PaymentGateway");
 
 
 
@@ -51,7 +51,7 @@ const User = require("./models/User");
 // MIDDLEWARES
 connectToMongo();
 const app = express();
-const port = 5002;
+const port =  process.env.PORT || 5005;
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -100,31 +100,6 @@ app.use("/color", express.static("./uploads/Color"));
 
 app.use("/api", userRoute);
 app.use("/api", roleRoutes);
-app.use("/category", productCatRoutes);
-app.use("/subcategory", productSubCatRoutes);
-app.use("/subsubcategory", productSubSubCatRoutes);
-app.use("/product", productRoutes);
-app.use("/customer", customerRoutes);
-app.use("/content", contentRoutes);
-app.use("/gallery", galleryRoutes);
-app.use("/gallerydetails", galleryDetailsRoutes);
-app.use("/orders", orderRoutes);
-app.use("/stocks", StocksRoutes);
-app.use("/coupons", CouponRoutes);
-app.use("/gst", Gst);
-app.use("/dailyrates" , DailyRatesRoutes);
-app.use("/material" , MaterialRoutes);
-app.use("/color" , ColorRoutes);
-app.use("/season" , SeasonRoutes);
-app.use("/banner" , BannerRoutes);
-app.use("/blog" , BlogRoutes);
-app.use("/dashboard" , DashboardRoutes);
-app.use("/color" , ColorRoutes);
-app.use("/size" , SizeRoutes);
-app.use("/blogcategory" , BlogCatRoutes);
-app.use("/subscribe" , SubscribeRoutes);
-app.use("/contact" , contactRoutes);
-app.use("/api" , paymentGatewayRoutes);
 
 
 
