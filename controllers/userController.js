@@ -8,6 +8,7 @@ const Token = require("../models/tokenModel");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
 const Role = require("../models/Roles");
+const passport = require('passport'); 
 
 const app = express();
 app.use(cookieParser());
@@ -50,6 +51,12 @@ const loginUser = asyncHandler(async (req, res) => {
     return res.send({ success: false, msg: "Please fill all required fields" });
   }
 
+   // Check if it's a Google login
+   if (req.body.googleToken) {
+    passport.authenticate('google', { scope: ['email', 'profile'] })(req, res);
+    return;
+  }
+
   const user = await User.findOne({ email });
 
   if (!user) {
@@ -79,6 +86,14 @@ const loginUser = asyncHandler(async (req, res) => {
     return res.status(401).send({ success: false, msg: "Invalid Credentials" });
   }
 });
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Successful Google login, redirect or respond as needed
+    res.redirect('/dashboard');
+  }
+);
 
 // Logout User
 const logout = asyncHandler(async (req, res) => {
