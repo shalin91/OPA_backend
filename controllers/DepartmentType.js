@@ -81,6 +81,20 @@ const addDepartmentType = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
+
+  const getDepartmentTypesByGroupId = async (req, res) => {
+    try {
+      const departmentGroupId = req.params.id;
+  
+      const departmentTypes = await DepartmentType.find({ departmentGroup: departmentGroupId })
+        .populate('departmentGroup', 'name')
+        .exec();
+  
+      return res.json({ data: departmentTypes });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
   
   module.exports = {
     addDepartmentType,
@@ -88,4 +102,5 @@ const addDepartmentType = async (req, res) => {
     deleteDepartmentType,
     getAllDepartmentType,
     getSpecificDepartmentType,
+    getDepartmentTypesByGroupId,
   };

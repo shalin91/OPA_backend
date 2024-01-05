@@ -47,12 +47,13 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+
   if (!email || !password) {
     return res.send({ success: false, msg: "Please fill all required fields" });
   }
 
-   // Check if it's a Google login
-   if (req.body.googleToken) {
+  // Check if it's a Google login
+  if (req.body.googleToken) {
     passport.authenticate('google', { scope: ['email', 'profile'] })(req, res);
     return;
   }
@@ -63,10 +64,12 @@ const loginUser = asyncHandler(async (req, res) => {
     return res.send({ success: false, msg: "User not found" });
   }
 
-  const passwordIscorrect = await bcrypt.compare(password, user.password);
+  // Compare passwords as plain text
+  const passwordIsCorrect = password === user.password;
 
   const token = generateToken(user._id);
   const roles = await Role.findOne({ role: user.roles[0] });
+
   res.cookie("token", token, {
     path: "/",
     httpOnly: true,
@@ -75,7 +78,7 @@ const loginUser = asyncHandler(async (req, res) => {
     secure: true,
   });
 
-  if (user && passwordIscorrect) {
+  if (user && passwordIsCorrect) {
     return res.send({
       success: true,
       msg: "Successfully LoggedIn",
@@ -205,34 +208,36 @@ const updateUser = asyncHandler(async (req, res) => {
 const updatePassword = asyncHandler(async (req, res) => {
   const user = await User.findById(req.body.id);
   const { oldPassword, newPassword, id } = req.body;
-  console.log(req.body);
+
   if (!user) {
-    return res.send({ success: false, msg: "User not found , Please signup" });
+    return res.send({ success: false, msg: "User not found, please sign up" });
   }
+
   // Validate
   if (!oldPassword || !newPassword) {
     return res.send({ success: false, msg: "Please add old and new password" });
   }
 
-  // check if old password matches password in DB
-  const passwordMatches = await bcrypt.compare(oldPassword, user.password);
-  if (!passwordMatches) {
+  // Compare plain text passwords
+  if (oldPassword !== user.password) {
     return res.send({ success: false, msg: "Old password is incorrect" });
   }
 
   if (oldPassword === newPassword) {
     return res.send({
       success: false,
-      msg: "New Password cannot be same as Old password",
+      msg: "New Password cannot be the same as the Old password",
     });
   } else {
-    const secPass = await bcrypt.hash(newPassword, 10);
+    // Update password as plain text
     await User.findByIdAndUpdate(id, {
-      password: secPass,
+      password: newPassword,
     });
+
     return res.send({ success: true, msg: "Password changed successfully" });
   }
 });
+
 
 // Forgot Password
 const forgotPassword = asyncHandler(async (req, res) => {
@@ -293,7 +298,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   const { password } = req.body;
   const { resetToken } = req.params;
 
-  // Hash token  then compare to Token in DB
+  // Hash token then compare to Token in DB
   const hashedToken = crypto
     .createHash("sha256")
     .update(resetToken)
@@ -312,12 +317,11 @@ const resetPassword = asyncHandler(async (req, res) => {
   // Find User
   const user = await User.findOne({ _id: userToken.userId });
   user.password = password;
-  console.log(user);
   user.save();
 
   return res.send({
     success: true,
-    msg: "Password Reset Successful,Please Login",
+    msg: "Password Reset Successful, Please Login",
   });
 });
 

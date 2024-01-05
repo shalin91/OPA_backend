@@ -85,6 +85,27 @@ const addEmployeeRole = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
+
+  const getEmployeeRolesByGroupAndType = async (req, res) => {
+    try {
+      const departmentGroupId = req.params.departmentGroupId;
+      const departmentTypeId = req.params.departmentTypeId;
+  
+      const employeeRoles = await EmployessRoles.find({
+        departmentGroup: departmentGroupId,
+        departmentType: departmentTypeId,
+      })
+        .populate([
+          { path: 'departmentGroup', select: 'name' },
+          { path: 'departmentType', select: 'name' },
+        ])
+        .exec();
+  
+      return res.json({ data: employeeRoles });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
   
   module.exports = {
     addEmployeeRole,
@@ -92,4 +113,5 @@ const addEmployeeRole = async (req, res) => {
     deleteEmployeeRole,
     getAllEmployeeRoles,
     getSpecificEmployeeRole,
+    getEmployeeRolesByGroupAndType,
   };

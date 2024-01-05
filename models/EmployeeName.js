@@ -4,6 +4,10 @@ const { Schema } = mongoose;
 const employeeName = new mongoose.Schema(
 
 {
+    location : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Location",
+    },
     departmentGroup: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "DepartmentGroup",

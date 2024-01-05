@@ -1,5 +1,5 @@
 const express = require("express");
-const { addEmployeeRole, getAllEmployeeRoles, getSpecificEmployeeRole, editEmployeeRole, deleteEmployeeRole } = require("../controllers/EmployeeRoleController");
+const { addEmployeeRole, getAllEmployeeRoles, getSpecificEmployeeRole, editEmployeeRole, deleteEmployeeRole, getEmployeeRolesByGroupAndType } = require("../controllers/EmployeeRoleController");
 
 
 const router = express.Router();
@@ -11,6 +11,7 @@ router.post("/getemployeeroles" , getAllEmployeeRoles);
 router.post("/getemployeerolebyid/:id",getSpecificEmployeeRole);
 router.post("/editemployeerole/:id",editEmployeeRole);
 router.post("/deleteemployerole/:id",deleteEmployeeRole);
+router.post("/getemployeerolebygroupandtype/:departmentGroupId/:departmentTypeId",getEmployeeRolesByGroupAndType);
 
 
 module.exports = router;
