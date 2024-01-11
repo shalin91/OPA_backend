@@ -6,11 +6,11 @@ const router = express.Router();
 
 // Routes
 router.post("/adddepartmenttype" , addDepartmentType);
-router.post("/getdepartmentstypes" , getAllDepartmentType);
-router.post("/getdepartmenttypebyid/:id",getSpecificDepartmentType);
+router.get("/getdepartmentstypes" , getAllDepartmentType);
+router.get("/getdepartmenttypebyid/:id",getSpecificDepartmentType);
 router.post("/editdepartmenttype/:id",editDepartmentType);
 router.post("/deletedepartmenttype/:id",deleteDepartmentType);
-router.post("/departmenttypebygroup/:id",getDepartmentTypesByGroupId);
+router.get("/departmenttypebygroup/:id",getDepartmentTypesByGroupId);
 
 
 module.exports = router;

@@ -5,6 +5,7 @@ const DepartmentGroup = require("../models/DepartmentGroupMaster");
 const addDepartmentGroup = async (req, res) => {
     try {
       const { name, isActive } = req.body;
+      console.log(req.body);
       const newDepartmentGroup = new DepartmentGroup({ name, isActive });
       const savedDepartmentGroup = await newDepartmentGroup.save();
       return res.json({success : true , data : savedDepartmentGroup});
