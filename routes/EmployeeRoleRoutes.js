@@ -8,10 +8,10 @@ const router = express.Router();
 // Routes
 router.post("/adddemployeerole" , addEmployeeRole);
 router.get("/getemployeeroles" , getAllEmployeeRoles);
-router.post("/getemployeerolebyid/:id",getSpecificEmployeeRole);
+router.get("/getemployeerolebyid/:id",getSpecificEmployeeRole);
 router.post("/editemployeerole/:id",editEmployeeRole);
 router.post("/deleteemployerole/:id",deleteEmployeeRole);
-router.post("/getemployeerolebygroupandtype/:departmentGroupId/:departmentTypeId",getEmployeeRolesByGroupAndType);
+router.get("/getemployeerolebygroupandtype/:departmentGroupId/:departmentTypeId",getEmployeeRolesByGroupAndType);
 
 
 module.exports = router;

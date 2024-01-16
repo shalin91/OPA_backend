@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Routes
 router.post("/adddemployeename" , addEmployeeName);
-router.post("/getemployeenames" , getAllEmployeeNames);
+router.get("/getemployeenames" , getAllEmployeeNames);
 router.post("/getemployeenamebyid/:id",getSpecificEmployeeName);
 router.post("/editemployeename/:id",editEmployeeName);
 router.post("/deleteemployeename/:id",deleteEmployeeName);

@@ -4,8 +4,8 @@ const EmployeesNames = require("../models/EmployeeName");
 // Add Type
 const addEmployeeName = async (req, res) => {
     try {
-      const { departmentGroup ,departmentType, employeeRole,name, isActive } = req.body;
-      const newEmployeeName = new EmployeesNames({ departmentGroup ,departmentType, employeeRole,name, isActive });
+      const { departmentGroup ,departmentType, employeeRole,location,name, isActive } = req.body;
+      const newEmployeeName = new EmployeesNames({ departmentGroup ,location,departmentType, employeeRole,name, isActive });
       const savedEmployeeName = await newEmployeeName.save();
       return res.json({success : true , data : savedEmployeeName});
     } catch (error) {
@@ -58,6 +58,7 @@ const addEmployeeName = async (req, res) => {
         { path: 'departmentGroup', select: 'name' },
         { path: 'departmentType', select: 'name' },
         { path: 'employeeRole', select: 'EmployeeRole' },
+        {path:'location',select:'name'}
       ]).exec();
        return res.json({data:employeeNames});
     } catch (error) {

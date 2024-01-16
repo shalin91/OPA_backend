@@ -43,7 +43,7 @@ const addDepartmentGroup = async (req, res) => {
       const deletedDepartmentGroup = await DepartmentGroup.findByIdAndDelete(id);
   
       if (!deletedDepartmentGroup) {
-        return res.status(404).json({ error: 'group not found' });
+        return res.status(404).json({ error: 'group not found' });  
       }
   
        return res.json({success : true , msg:"Department Group Deleted Successfully"});
