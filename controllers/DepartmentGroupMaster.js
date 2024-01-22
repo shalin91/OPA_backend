@@ -1,5 +1,33 @@
 const express = require("express");
 const DepartmentGroup = require("../models/DepartmentGroupMaster");
+const deptgrp=[];
+const addDefaultObjectIdToArray = async (req, res) => {
+  try {
+    const parentId = req.params.id;
+
+    // Create a new child document with a default ObjectId
+    const newChild = await DepartmentGroup.create({});
+
+    // Find the parent document by _id and update the array
+    const updatedParent = await DepartmentGroup.findByIdAndUpdate(
+      parentId,
+      { $push: { children: newChild._id } },
+      { new: true }
+    );
+
+    if (!updatedParent) {
+      return res.status(404).json({ error: 'Parent not found' });
+    }
+
+    res.json(updatedParent);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
+
 
 // Add Location
 const addDepartmentGroup = async (req, res) => {
@@ -61,6 +89,8 @@ const addDepartmentGroup = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
+
+  
   
   // Get Specific Location
   const getSpecificDepartmentGroup = async (req, res) => {
@@ -84,4 +114,5 @@ const addDepartmentGroup = async (req, res) => {
     deleteDepartmentGroup,
     getAllDepartmentGroup,
     getSpecificDepartmentGroup,
+    addDefaultObjectIdToArray
   };

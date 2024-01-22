@@ -10,6 +10,7 @@ const DepartmentGroupRoutes = require("./routes/DepartmentGroupMaster");
 const DepartmentTypeRoutes = require("./routes/DepartmentType");
 const EmployeeRolesRoutes = require("./routes/EmployeeRoleRoutes");
 const EmployeeNamesRoutes = require("./routes/EmployeeNameRoutes");
+const communityMaster=require('./routes/communitymaster')
 const errorHandler = require("./middlewares/errorMiddleware");
 const cookieParser = require("cookie-parser");
 const protect = require("./middlewares/authMiddleware");
@@ -133,6 +134,7 @@ app.use("/departmentgroup", DepartmentGroupRoutes);
 app.use("/departmenttype", DepartmentTypeRoutes);
 app.use("/employeerole", EmployeeRolesRoutes);
 app.use("/employeename", EmployeeNamesRoutes);
+app.use("/communitymaster",communityMaster)
 
 
 
