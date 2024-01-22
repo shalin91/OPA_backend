@@ -16,7 +16,7 @@ const departmentType = new mongoose.Schema(
 },
 {
     timestamps: true,
-  }
+}
 );
 
 const DepartmentType = mongoose.model ("DepartmentType" , departmentType);
