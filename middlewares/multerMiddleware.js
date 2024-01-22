@@ -1,6 +1,6 @@
 const multer = require("multer");
-const path = require("path");
-
+// const path = require("C:\\Users\\Tushya\\Desktop\\OPA\\OPA_backend\\uploads");
+const { v4: uuidv4 } = require("uuid");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // if (file.fieldname === "profilePhoto") {
